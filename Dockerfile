@@ -1,18 +1,10 @@
-# 使用基础镜像
-FROM registry.cn-shenzhen.aliyuncs.com/handsfree/certd:${CERTD_VERSION}
+FROM registry.cn-shenzhen.aliyuncs.com/handsfree/certd:latest
 
-# 设置工作目录
-WORKDIR /app
-
-# 复制文件到容器中
-COPY . /app
-
-# 设置环境变量
-ENV TZ=Asia/Shanghai
-ENV certd_auth_jwt_secret=${JWT_SECRET}
-
-# 暴露端口
+#RUN npm install pm2 -g  --registry=https://registry.npmmirror.com
+#CMD ["pm2-runtime", "start", "./bootstrap.js","--name", "certd","-i","1","--", "-p", "7001"]
+ENV TZ=""
+ENV certd_auth_jwt_secret=""
 EXPOSE 7001
+RUN npm run build
 
-# 运行命令
-CMD ["npm", "start"]
+CMD ["npm","run", "start"]
